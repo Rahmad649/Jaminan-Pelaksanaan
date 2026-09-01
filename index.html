@@ -85,6 +85,18 @@
       animation: paper-zoom 2.5s ease-in-out infinite;
       transform-origin: center;
     }
+
+    /* Menghilangkan panah naik-turun pada input number (Chrome, Safari, Edge) */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Menghilangkan panah naik-turun pada input number (Firefox) */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
   </style>
 </head>
 <body class="text-gray-900 antialiased">
