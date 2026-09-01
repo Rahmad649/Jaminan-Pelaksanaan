@@ -322,7 +322,7 @@
               <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
               Tgl Berlaku
             </label>
-            <input type="date" name="tglBerlaku" required class="date-input w-full px-3.5 py-2.5 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all outline-none">
+            <input type="date" id="tglBerlaku" name="tglBerlaku" required class="w-full px-3.5 py-2.5 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all outline-none">
             <p class="error-msg hidden text-[11px] text-red-500 mt-1.5 font-medium"></p>
           </div>
           <div class="flex-1 input-group">
@@ -330,7 +330,7 @@
               <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
               Tgl Berakhir
             </label>
-            <input type="date" name="tglBerakhir" required class="date-input w-full px-3.5 py-2.5 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all outline-none">
+            <input type="date" id="tglBerakhir" name="tglBerakhir" required class="w-full px-3.5 py-2.5 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all outline-none">
             <p class="error-msg hidden text-[11px] text-red-500 mt-1.5 font-medium"></p>
           </div>
         </div>
@@ -742,6 +742,18 @@
         isSubmitting = false; 
       }
     }
+
+    // Memaksa kalender terbuka langsung saat kotak disentuh 1 kali di HP
+    ['tglBerlaku', 'tglBerakhir'].forEach(function(id) {
+      const input = document.getElementById(id);
+      if(input) {
+        input.addEventListener('click', function() {
+          if (typeof this.showPicker === 'function') {
+            this.showPicker();
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
