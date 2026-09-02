@@ -710,7 +710,8 @@
 
       // MENGGUNAKAN FETCH SEBAGAI PENGGANTI google.script.run
       fetch(gasUrl, {
-        method: 'POST' // Kirim data sebagai teks (JSON string)
+        method: 'POST',
+        body: JSON.stringify(formData) // <-- BARIS INI WAJIB ADA UNTUK MEMBAWA DATA
       })
       .then(response => response.json())
       .then(response => {
