@@ -49,19 +49,20 @@
     }
     .animate-pop-in { animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-    @keyframes wave-hand {
-      0% { transform: rotate(0.0deg); }
-      10% { transform: rotate(14.0deg); }
-      20% { transform: rotate(-8.0deg); }
-      30% { transform: rotate(14.0deg); }
-      40% { transform: rotate(-4.0deg); }
-      50% { transform: rotate(10.0deg); }
-      60%, 100% { transform: rotate(0.0deg); }
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      10% { transform: rotate(14deg); }
+      20% { transform: rotate(-8deg); }
+      30% { transform: rotate(14deg); }
+      40% { transform: rotate(-4deg); }
+      50% { transform: rotate(10deg); }
+      60% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
     }
-    .animate-wave {
+    .wave-hand {
       display: inline-block;
-      animation: wave-hand 2.5s infinite;
       transform-origin: 70% 70%;
+      animation: wave 2s infinite ease-in-out;
     }
 
     /* Animasi Validasi Kaca Pembesar */
@@ -150,10 +151,12 @@
 
       <div class="px-5 pt-6 pb-6 flex justify-between items-start gap-4">
         <div class="flex-1 relative z-10">
-          <h2 class="flex items-center gap-1.5 text-[1.15rem] font-extrabold text-gray-900 tracking-tight leading-tight">
-            Selamat Datang di e-Jampel 
-            <span class="animate-wave text-[1.25rem]">👋</span>
-          </h2>
+          <h1 class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-1.5">
+            <span id="greetingText">Selamat Pagi!...</span> <span class="wave-hand text-2xl">👋</span>
+          </h1>
+          <p class="text-sm italic text-gray-600 mt-1 font-medium">
+            Siap Memproses Dokumen Hari Ini?
+          </p>
           <p class="italic text-[11px] font-medium text-gray-500 mt-2 leading-relaxed text-left">
             Untuk mempercepat proses validasi, silakan lengkapi formulir dan unggah salinan digital Jaminan Pelaksanaan beserta Surat Kuasa Pencairan Anda di sini sebelum menyerahkan dokumen fisik.
           </p>
@@ -773,6 +776,27 @@
           placeholder.style.display = 'block';
         }
       });
+    }
+  });
+
+    / Mengatur Sapaan Berdasarkan Waktu Perangkat
+  document.addEventListener("DOMContentLoaded", () => {
+    const greetingElement = document.getElementById("greetingText");
+    if (greetingElement) {
+      const currentHour = new Date().getHours();
+      let greeting = "Selamat Datang!...";
+
+      if (currentHour >= 4 && currentHour < 11) {
+        greeting = "Selamat Pagi!...";
+      } else if (currentHour >= 11 && currentHour < 15) {
+        greeting = "Selamat Siang!...";
+      } else if (currentHour >= 15 && currentHour < 18) {
+        greeting = "Selamat Sore!...";
+      } else {
+        greeting = "Selamat Malam!...";
+      }
+
+      greetingElement.textContent = greeting;
     }
   });
   </script>
