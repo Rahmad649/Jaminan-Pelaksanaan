@@ -828,9 +828,9 @@
         finalHTML = 'Semangat Pagi!... <span class="bounce-icon text-2xl align-middle inline-block">🌅</span>';
       } 
       else if (currentHour >= 11 && currentHour < 17) {
-        // Siang (11:00 - 16:59) -> Ditambah <br> agar rapi di HP
-        finalHTML = 'Udah Siang nih.. <br> makan dulu yuk! <span class="spin-sun text-2xl align-middle inline-block">☀️</span>';
-      } 
+        // Siang (11:00 - 16:59)
+        finalHTML = 'Udah Siang, istirahat yuk! <span class="spin-sun text-2xl align-middle inline-block">☀️</span>';
+      }
       else if (currentHour >= 17 && currentHour < 19) {
         // Sore (17:00 - 18:59)
         finalHTML = 'Kamu belum pulang..? <span class="bounce-icon text-2xl align-middle inline-block">🌇</span>';
@@ -851,9 +851,9 @@
           
           // Efek muncul kembali (opacity 100)
           greetingElement.classList.replace('opacity-0', 'opacity-100');
-        }, 500); 
+        }, 700); 
         
-      }, 3500);
+      }, 3000);
     }
   });
   </script>
