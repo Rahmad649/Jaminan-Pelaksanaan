@@ -185,8 +185,8 @@
       <div class="px-5 pt-4 pb-6 flex justify-between items-start gap-4">
         <div class="flex-1 relative z-10">
           <!-- Baris Judul Utama dengan Transisi Halus -->
-          <h1 id="greetingContainer" class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-1.5 transition-opacity duration-500 ease-in-out opacity-100">
-            Selamat Datang!... <span class="wave-hand text-2xl">👋</span>
+          <h1 id="greetingContainer" class="text-xl font-bold text-gray-900 tracking-tight transition-opacity duration-500 ease-in-out opacity-100 leading-snug">
+            Selamat Datang!... <span class="wave-hand text-2xl align-middle inline-block">👋</span>
           </h1>
           <!-- Baris Sub-teks -->
           <p class="text-sm italic text-gray-600 mt-1 font-medium">
@@ -822,22 +822,22 @@
       const currentHour = new Date().getHours();
       let finalHTML = "";
 
-      // Tentukan teks dan ikon berdasarkan jam
+      // Tentukan teks dan ikon berdasarkan jam dengan tambahan align-middle & inline-block
       if (currentHour >= 4 && currentHour < 11) {
         // Pagi (04:00 - 10:59)
-        finalHTML = 'Semangat Pagi!... <span class="bounce-icon text-2xl">🌅</span>';
+        finalHTML = 'Semangat Pagi!... <span class="bounce-icon text-2xl align-middle inline-block">🌅</span>';
       } 
       else if (currentHour >= 11 && currentHour < 17) {
-        // Siang (11:00 - 16:59)
-        finalHTML = 'Udah Siang nih.. <span class="spin-sun text-2xl">☀️</span> makan dulu yuk!';
+        // Siang (11:00 - 16:59) -> Ditambah <br> agar rapi di HP
+        finalHTML = 'Udah Siang nih.. <br> makan dulu yuk! <span class="spin-sun text-2xl align-middle inline-block">☀️</span>';
       } 
       else if (currentHour >= 17 && currentHour < 19) {
         // Sore (17:00 - 18:59)
-        finalHTML = 'Kamu belum pulang..? <span class="bounce-icon text-2xl">🌇</span>';
+        finalHTML = 'Kamu belum pulang..? <span class="bounce-icon text-2xl align-middle inline-block">🌇</span>';
       } 
       else {
-        // Malam (19:00 - 03:59)
-        finalHTML = 'Belum Tidur..? <span class="bounce-icon text-2xl">🌙</span><span class="zzz-animate text-sm">💤</span>';
+        // Malam (19:00 - 03:59) -> Diterapkan pada ikon bulan dan ikon Zzz
+        finalHTML = 'Belum Tidur..? <span class="bounce-icon text-2xl align-middle inline-block">🌙</span><span class="zzz-animate text-sm align-middle inline-block">💤</span>';
       }
 
       // Berikan jeda 1.5 detik untuk "Selamat Datang"
@@ -853,7 +853,7 @@
           greetingElement.classList.replace('opacity-0', 'opacity-100');
         }, 500); 
         
-      }, 1500);
+      }, 3500);
     }
   });
   </script>
