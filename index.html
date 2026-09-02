@@ -49,6 +49,7 @@
     }
     .animate-pop-in { animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
+    /* Animasi Lambaian Tangan (Selamat Datang) */
     @keyframes wave {
       0% { transform: rotate(0deg); }
       10% { transform: rotate(14deg); }
@@ -63,6 +64,38 @@
       display: inline-block;
       transform-origin: 70% 70%;
       animation: wave 2s infinite ease-in-out;
+    }
+  
+    /* Animasi Matahari Berputar (Siang) */
+    @keyframes spin-slow {
+      100% { transform: rotate(360deg); }
+    }
+    .spin-sun {
+      display: inline-block;
+      animation: spin-slow 4s linear infinite;
+    }
+  
+    /* Animasi Mengambang Halus (Pagi, Sore, Malam) */
+    @keyframes bounce-soft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .bounce-icon {
+      display: inline-block;
+      animation: bounce-soft 2s ease-in-out infinite;
+    }
+  
+    /* Animasi Zzz Tidur (Malam) */
+    @keyframes sleep-zzz {
+      0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translate(6px, -12px) scale(1.2); opacity: 0; }
+    }
+    .zzz-animate {
+      display: inline-block;
+      animation: sleep-zzz 2.5s infinite linear;
+      position: relative;
+      margin-left: -2px; /* Agar posisi Zzz dekat dengan ikon bulan */
     }
 
     /* Animasi Validasi Kaca Pembesar */
@@ -151,10 +184,9 @@
 
       <div class="px-5 pt-4 pb-6 flex justify-between items-start gap-4">
         <div class="flex-1 relative z-10">
-          <!-- Baris Sapaan Dinamis dengan Transisi Halus -->
-          <h1 class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-1.5">
-            <span id="greetingText" class="transition-opacity duration-500 ease-in-out opacity-100">Selamat Datang!...</span> 
-            <span class="wave-hand text-2xl">👋</span>
+          <!-- Baris Judul Utama dengan Transisi Halus -->
+          <h1 id="greetingContainer" class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-1.5 transition-opacity duration-500 ease-in-out opacity-100">
+            Selamat Datang!... <span class="wave-hand text-2xl">👋</span>
           </h1>
           <!-- Baris Sub-teks -->
           <p class="text-sm italic text-gray-600 mt-1 font-medium">
@@ -784,37 +816,44 @@
 
     // Mengatur Sapaan Berdasarkan Waktu Perangkat
     document.addEventListener("DOMContentLoaded", () => {
-    const greetingElement = document.getElementById("greetingText");
+    const greetingElement = document.getElementById("greetingContainer");
     
     if (greetingElement) {
       const currentHour = new Date().getHours();
-      let finalGreeting = "";
+      let finalHTML = "";
 
-      // Tentukan teks sapaan akhirnya
+      // Tentukan teks dan ikon berdasarkan jam
       if (currentHour >= 4 && currentHour < 11) {
-        finalGreeting = "Semangat Pagi!...";
-      } else if (currentHour >= 11 && currentHour < 15) {
-        finalGreeting = "Selamat Siang!...";
-      } else if (currentHour >= 15 && currentHour < 18) {
-        finalGreeting = "Selamat Sore!...";
-      } else {
-        finalGreeting = "Selamat Malam!...";
+        // Pagi (04:00 - 10:59)
+        finalHTML = 'Semangat Pagi!... <span class="bounce-icon text-2xl">🌅</span>';
+      } 
+      else if (currentHour >= 11 && currentHour < 17) {
+        // Siang (11:00 - 16:59)
+        finalHTML = 'Udah Siang nih.. <span class="spin-sun text-2xl">☀️</span> makan dulu yuk!';
+      } 
+      else if (currentHour >= 17 && currentHour < 19) {
+        // Sore (17:00 - 18:59)
+        finalHTML = 'Kamu belum pulang..? <span class="bounce-icon text-2xl">🌇</span>';
+      } 
+      else {
+        // Malam (19:00 - 03:59)
+        finalHTML = 'Belum Tidur..? <span class="bounce-icon text-2xl">🌙</span><span class="zzz-animate text-sm">💤</span>';
       }
 
-      // Berikan jeda 1.5 detik agar "Selamat Datang" terbaca dulu
+      // Berikan jeda 1.5 detik untuk "Selamat Datang"
       setTimeout(() => {
-        // Buat teks memudar (opacity menjadi 0)
+        // Efek memudar (opacity 0)
         greetingElement.classList.replace('opacity-100', 'opacity-0');
         
-        // Tunggu 0.5 detik (selama proses memudar), lalu ganti teksnya
+        // Tunggu 0.5 detik selama proses memudar, lalu ganti kontennya
         setTimeout(() => {
-          greetingElement.textContent = finalGreeting;
+          greetingElement.innerHTML = finalHTML;
           
-          // Munculkan kembali teks yang baru (opacity menjadi 100)
+          // Efek muncul kembali (opacity 100)
           greetingElement.classList.replace('opacity-0', 'opacity-100');
         }, 500); 
         
-      }, 1500); // 1500 milidetik = 1.5 detik
+      }, 1500);
     }
   });
   </script>
