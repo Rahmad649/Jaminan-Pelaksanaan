@@ -722,27 +722,33 @@
           overlay.classList.remove('hidden');
           overlay.classList.add('flex');
           
+          // 1. Ambil nilai Email dan Nomor Dokumen dari form
           const emailTarget = document.getElementsByName('emailPerusahaan')[0].value;
+          const noDokumen = document.getElementsByName('noAgreement')[0].value; 
           
           let htmlPesan = "";
           let iconAlert = "success";
 
           if (response.generateStatus === 'success') {
+            // JIKA N8N SUKSES & EMAIL TERKIRIM
             htmlPesan = `
-                <div class="text-gray-600 mt-2 text-[15px] leading-relaxed">
-                  Tanda Terima Jaminan Penawaran telah terkirim ke email:<br>
-                  <span class="text-[#008f4c] font-bold text-lg block mt-2 mb-1">${emailTarget}</span>
+                <div class="text-gray-600 mt-1 text-[13.5px] leading-relaxed">
+                  Tanda Terima Jaminan Penawaran <span class="bg-blue-50 text-blue-600 font-bold px-1.5 py-0.5 rounded-md border border-blue-100">${noDokumen}</span> telah terkirim ke email:<br>
+                  <span class="text-[#008f4c] font-bold text-[15px] block mt-1.5 mb-1">${emailTarget}</span>
                 </div>`;
           } else {
+            // JIKA N8N MATI / BUTUH VERIFIKASI MANUAL
             iconAlert = "info"; 
             htmlPesan = `
-                <div class="text-gray-600 mt-2 text-[15px] leading-relaxed">
-                  Tanda Terima Jaminan Penawaran akan dikirim ke email:<br>
-                  <span class="text-[#008f4c] font-bold text-lg block mt-2 mb-1">${emailTarget}</span>
-                  <span class="text-gray-400 text-xs italic">mohon untuk dicek secara berkala.</span>
-                  <span class="text-red-600 font-bold text-xm block mt-2 px-3 py-1 bg-red-50 rounded-lg border border-red-100">
+                <div class="text-gray-600 mt-2 text-[13.5px] leading-relaxed">
+                  <span class="text-red-600 font-bold text-[13px] flex items-center justify-center gap-1 mb-2.5 px-2 py-1.5 bg-red-50 rounded-lg border border-red-100 shadow-sm">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                       Segera Hubungi PIC Buyer
                   </span>
+                  Untuk verifikasi dokumen <span class="text-blue-600 font-bold">${noDokumen}</span>.<br>
+                  Tanda terima jaminan akan dikirim ke email:<br>
+                  <span class="text-[#008f4c] font-bold text-[15px] block mt-1.5 mb-0.5">${emailTarget}</span>
+                  <span class="text-gray-400 text-[11px] italic">mohon dicek secara berkala.</span>
                 </div>`;
           }
           
@@ -752,14 +758,16 @@
             
             Swal.fire({
               icon: iconAlert,
-              title: '<h2 class="text-2xl font-extrabold text-gray-800">Data Berhasil Disimpan</h2>',
+              title: '<h2 class="text-xl font-extrabold text-gray-800 tracking-tight">Data Tersimpan</h2>', // Ukuran font judul diperkecil
               html: htmlPesan,
               background: '#ffffff',
               backdrop: `rgba(0, 0, 0, 0.45)`,
-              padding: '2em',
+              padding: '1.25em', // Padding internal diperkecil (sebelumnya 2em)
+              width: 320, // Lebar kotak dikunci di 320px agar mungil dan pas di HP
               customClass: {
-                popup: 'rounded-[1.5rem] shadow-2xl border-0',
-                confirmButton: 'bg-[#008f4c] hover:bg-[#00703c] text-white font-bold py-3 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 outline-none'
+                popup: 'rounded-3xl shadow-2xl border-0', // Menggunakan border radius yang lebih halus
+                icon: 'transform scale-75 -mb-3 mt-2', // INI KUNCINYA: Memperkecil ikon 25% dan merapatkan jarak
+                confirmButton: 'bg-[#008f4c] hover:bg-[#00703c] text-white font-bold py-2.5 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 outline-none w-full mt-1' // Tombol dibuat lebih ramping
               },
               buttonsStyling: false, 
               confirmButtonText: 'Selesai'
